@@ -1,0 +1,11 @@
+version: 2
+jobs:
+    build:
+        docker:
+            - image: circleci/node:10.16.0
+            - image: circleci/mongo:4-ram
+        steps:
+            - checkout
+            - run: npm ci
+            - run: npm run lint
+            - run: npm run build
