@@ -8,4 +8,5 @@ jobs:
             - checkout
             - run: npm ci
             - run: npm run lint
+            - run: npm run test:features
             - run: npm run build
