@@ -9,8 +9,15 @@ Feature: Le responsable des héros accède au formulaire
         When un responsable des héros enrolle ce héro
         Then ce héro est enrollé dans le comité des défenses de la Terre
 
-#    Scenario: Enrollement d'un héro déjà enrollé
+    Scenario: Enrollement d'un héro déjà enrollé
+        Given un héro déjà enrollé nommé "Burger Master"
+        And un héro s'appellant "Burger Master"
+        When un responsable des héros enrolle ce héro
+        Then l'enrollement d'un héro déjà enrollé est impossible
+
+#    Scenario: Enrollement d'un héro déjà enrollé avec une casse différente
 #        Given un héro déjà enrollé nommé "Burger Master"
+#        And un héro s'appellant "burger master"
 #        When un responsable des héros enrolle ce héro
 #        Then l'enrollement d'un héro déjà enrollé est impossible
 #
