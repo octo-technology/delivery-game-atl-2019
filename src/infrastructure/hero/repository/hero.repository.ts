@@ -31,4 +31,8 @@ export class HeroRepository implements HeroRepositoryInterface, OnModuleInit {
                 }
             });
     }
+
+    getAll(): Promise<Array<Hero>> {
+        return this.collection.find({}).toArray();
+    }
 }

@@ -13,4 +13,8 @@ export class HeroService implements HeroServiceInterface {
     enrollHero(hero: Hero): Promise<void> {
         return this.heroRepository.save(hero);
     }
+
+    listHeroes(): Promise<Array<Hero>> {
+        return this.heroRepository.getAll();
+    }
 }

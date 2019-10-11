@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpException, HttpStatus, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Inject, Post } from '@nestjs/common';
 import { Hero } from '../../../domain/hero/hero';
 import { HeroServiceInterface } from '../../../domain/hero/interface/hero.service.interface';
 import { HERO_ALREADY_ENROLLED } from '../repository/hero.repository';
@@ -6,6 +6,11 @@ import { HERO_ALREADY_ENROLLED } from '../repository/hero.repository';
 @Controller('heroes')
 export class HeroesController {
     constructor(@Inject('HeroServiceInterface') private readonly heroService: HeroServiceInterface) {
+    }
+
+    @Get('/')
+    async listHeroes(): Promise<Array<Hero>> {
+        return this.heroService.listHeroes();
     }
 
     @Post('/')

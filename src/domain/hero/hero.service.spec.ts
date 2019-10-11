@@ -21,3 +21,14 @@ it('creates a hero', async () => {
     expect(heroRepository.save).toHaveBeenCalledWith(hero);
     expect(enrolledHeroResolution).toEqual(undefined);
 });
+
+it('list heroes', async () => {
+    const heroRepository = {} as HeroRepositoryInterface;
+    heroRepository.getAll = jest.fn().mockResolvedValue([{ name: 'Burger Master' } as Hero]);
+    const heroService = new HeroService(heroRepository);
+
+    const heroes = await heroService.listHeroes();
+
+    expect(heroRepository.getAll).toHaveBeenCalled();
+    expect(heroes).toEqual([{ name: 'Burger Master' } as Hero]);
+});

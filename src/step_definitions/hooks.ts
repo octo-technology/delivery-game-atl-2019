@@ -7,6 +7,10 @@ import { DATABASE_NAME } from '../config/mongo.provider';
 
 export let app: INestApplication;
 
+export interface CucumberDatatable {
+    rawTable: Array<Array<string>>;
+}
+
 BeforeAll(async () => {
     const testingModule: TestingModule = await Test
         .createTestingModule({

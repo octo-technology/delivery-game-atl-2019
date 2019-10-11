@@ -14,4 +14,12 @@ export class MongoOperations {
             .collection(this.collectionName)
             .insertOne(document);
     }
+
+    async getAll(): Promise<Array<any>> {
+        return app.get('MongoProvider').mongoClient
+            .db()
+            .collection(this.collectionName)
+            .find({})
+            .toArray();
+    }
 }

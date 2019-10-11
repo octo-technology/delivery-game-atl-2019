@@ -79,15 +79,15 @@
                                         <v-toolbar-title>Liste des héros</v-toolbar-title>
                                     </v-toolbar>
                                     <v-card-text>
-<!--                                        <v-list>-->
-<!--                                            <v-list-item-group>-->
-<!--                                                <v-list-item>-->
-<!--                                                    <v-list-item-content>-->
-<!--                                                        <v-list-item-title>{{hero.name}}</v-list-item-title>-->
-<!--                                                    </v-list-item-content>-->
-<!--                                                </v-list-item>-->
-<!--                                            </v-list-item-group>-->
-<!--                                        </v-list>-->
+                                        <v-list>
+                                            <v-list-item-group>
+                                                <v-list-item v-for="hero in heroes">
+                                                    <v-list-item-content>
+                                                        <v-list-item-title>{{hero.name}}</v-list-item-title>
+                                                    </v-list-item-content>
+                                                </v-list-item>
+                                            </v-list-item-group>
+                                        </v-list>
                                     </v-card-text>
                                 </v-card>
                             </v-container>

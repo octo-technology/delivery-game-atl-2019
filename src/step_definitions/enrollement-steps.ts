@@ -24,8 +24,11 @@ When(/^un responsable des héros enrolle ce héro$/, async () => {
 });
 
 Then(/^ce héro est enrollé dans le comité des défenses de la Terre$/,
-    () => {
+    async () => {
         expect(request.responseStatus).to.equal(HttpStatus.OK);
+
+        const heroesFromDatabase = await new MongoOperations(HeroRepository.COLLECTION_NAME).getAll();
+        expect(hero.name).to.eql(heroesFromDatabase[0].name);
     });
 
 Then(/^l'enrollement d'un héro déjà enrollé est impossible$/, () => {
