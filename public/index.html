@@ -25,66 +25,103 @@
         >
             <v-toolbar-title>VICI</v-toolbar-title>
         </v-app-bar>
-        <v-container grid-list-md text-xs-center>
-            <v-layout row wrap>
-                <v-flex xs6>
-                    <v-content>
-                        <v-container>
-                            <v-card>
-                                <v-toolbar
-                                    color="primary"
-                                    dark
-                                    flat>
-                                    <v-toolbar-title>Liste des menaces</v-toolbar-title>
-                                </v-toolbar>
-                                <v-card-text>
-                                    <v-list>
-                                        <v-list-item-group>
-                                            <v-list-item v-for="hero in heroes">
-                                                <v-list-item-content>
-                                                    <v-list-item-title>Ok</v-list-item-title>
-                                                </v-list-item-content>
-                                            </v-list-item>
-                                        </v-list-item-group>
-                                    </v-list>
-                                </v-card-text>
-                            </v-card>
-                            <ul>
-                                <li v-for="hero in heroes">{{hero.title}}</li>
-                            </ul>
-                        </v-container>
-                    </v-content>
-                </v-flex>
-                <v-flex xs6>
-                    <v-content>
-                        <v-container>
-                            <v-card>
-                                <v-toolbar
-                                    color="primary"
-                                    dark
-                                    flat>
-                                    <v-toolbar-title>Liste des héros</v-toolbar-title>
-                                </v-toolbar>
-                                <v-card-text>
-                                    <v-list>
-                                        <v-list-item-group>
-                                            <v-list-item v-for="hero in heroes">
-                                                <v-list-item-content>
-                                                    <v-list-item-title>Ok</v-list-item-title>
-                                                </v-list-item-content>
-                                            </v-list-item>
-                                        </v-list-item-group>
-                                    </v-list>
-                                </v-card-text>
-                            </v-card>
-                            <ul>
-                                <li v-for="hero in heroes">{{hero.title}}</li>
-                            </ul>
-                        </v-container>
-                    </v-content>
-                </v-flex>
-            </v-layout>
-        </v-container>
+        <v-content>
+            <v-container grid-list-md text-xs-center>
+                <v-layout row wrap>
+                    <v-flex xs12>
+                        <v-form
+                            ref="form"
+                            lazy-validation
+                        >
+                            <v-text-field
+                                v-model="hero.name"
+                                label="Nom du héro"
+                                required
+                            ></v-text-field>
+
+                            <v-btn
+                                color="success"
+                                class="mr-4"
+                                @click="enroll(hero)"
+                            >
+                                Enroller
+                            </v-btn>
+                        </v-form>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+            <v-container grid-list-md text-xs-center>
+                <v-layout row wrap>
+                    <v-flex xs6>
+                        <v-content>
+                            <v-container>
+                                <v-card>
+                                    <v-toolbar
+                                        color="primary"
+                                        dark
+                                        flat>
+                                        <v-toolbar-title>Liste des menaces</v-toolbar-title>
+                                    </v-toolbar>
+                                    <v-card-text>
+                                    </v-card-text>
+                                </v-card>
+                            </v-container>
+                        </v-content>
+                    </v-flex>
+                    <v-flex xs6>
+                        <v-content>
+                            <v-container>
+                                <v-card>
+                                    <v-toolbar
+                                        color="primary"
+                                        dark
+                                        flat>
+                                        <v-toolbar-title>Liste des héros</v-toolbar-title>
+                                    </v-toolbar>
+                                    <v-card-text>
+<!--                                        <v-list>-->
+<!--                                            <v-list-item-group>-->
+<!--                                                <v-list-item>-->
+<!--                                                    <v-list-item-content>-->
+<!--                                                        <v-list-item-title>{{hero.name}}</v-list-item-title>-->
+<!--                                                    </v-list-item-content>-->
+<!--                                                </v-list-item>-->
+<!--                                            </v-list-item-group>-->
+<!--                                        </v-list>-->
+                                    </v-card-text>
+                                </v-card>
+                            </v-container>
+                        </v-content>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-content>
+
+        <v-snackbar
+            v-model="snackbar"
+        >
+            Héro enrollé
+            <v-btn
+                color="success"
+                text
+                @click="snackbar = false"
+            >
+                Ok
+            </v-btn>
+        </v-snackbar>
+
+        <v-snackbar
+            v-model="error"
+        >
+            Héro non enrollé
+            <v-btn
+                color="error"
+                text
+                @click="error = false"
+            >
+                Ok
+            </v-btn>
+        </v-snackbar>
     </v-app>
 </div>
 
@@ -94,10 +131,29 @@
         vuetify: new Vuetify(),
         data() {
             return {
+                hero: {},
                 heroes: [],
+                snackbar: false,
+                error: false,
             };
         },
-        methods: {},
+        methods: {
+            enroll(hero) {
+                return axios
+                    .post('/heroes', hero)
+                    .then(() => {
+                        this.snackbar = true;
+                        this.heroes.push(hero);
+                        this.clearForm();
+                    })
+                    .catch(() => {
+                        this.error = true;
+                    });
+            },
+            clearForm() {
+                this.hero = {};
+            },
+        },
         async mounted() {
             return Promise.all([
                 axios
