@@ -1,5 +1,5 @@
 import { Hero } from '../hero';
 
 export interface HeroRepositoryInterface {
-    getAll(): Promise<Array<Hero>>;
+    save(hero: Hero): Promise<void>;
 }

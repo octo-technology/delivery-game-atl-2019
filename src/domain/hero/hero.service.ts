@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { HeroRepositoryInterface } from './interface/hero.repository.interface';
-import { Hero } from './hero';
 import { HeroServiceInterface } from './interface/hero.service.interface';
+import { Hero } from './hero';
 
 @Injectable()
 export class HeroService implements HeroServiceInterface {
@@ -10,7 +10,7 @@ export class HeroService implements HeroServiceInterface {
     ) {
     }
 
-    getAll(): Promise<Array<Hero>> {
-        return this.heroRepository.getAll();
+    enrollHero(hero: Hero): Promise<void> {
+        return this.heroRepository.save(hero);
     }
 }

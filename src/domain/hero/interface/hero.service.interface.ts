@@ -1,5 +1,5 @@
 import { Hero } from '../hero';
 
 export interface HeroServiceInterface {
-    getAll(): Promise<Array<Hero>>;
+    enrollHero(hero: Hero): Promise<void>;
 }

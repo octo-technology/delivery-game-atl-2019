@@ -10,7 +10,7 @@ export class HeroRepository extends CommonRepository implements HeroRepositoryIn
         super(mongoProvider, 'heroes');
     }
 
-    getAll(): Promise<Array<Hero>> {
-        return this.collection.find({}).toArray();
+    async save(hero: Hero): Promise<void> {
+        await this.collection.insertOne(hero);
     }
 }
